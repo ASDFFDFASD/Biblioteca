@@ -13,37 +13,32 @@ import javax.persistence.Persistence;
  *
  * @author luis
  */
-public class CategoriaModelo {
-    
+public class EstadoModelo {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public CategoriaModelo() {
+    public EstadoModelo() {
         this.emf = Persistence.createEntityManagerFactory("biblioteca");
         this.em = this.emf.createEntityManager();
     }
     
-    public Categoria crearCategoria(String nombreCategoria){
-        Categoria cat = new Categoria();
-        cat.setNombreCategoria(nombreCategoria);
+    public Estado agregarModelo(String descripcion){
+        Estado est = new Estado();
+        est.setDescripcionEstado(descripcion);
         
         em.getTransaction().begin();
-        em.persist(cat);
+        em.persist(est);
         em.getTransaction().commit();
-        
-        return cat;
+        return est;
     }
     
-    public boolean eliminarCategoria(int codigoCategoria){
-        Categoria cat = em.find(Categoria.class, codigoCategoria);
-        
+    public boolean eliminarModelo(int codigoModelo){
+        Estado est = em.find(Estado.class, codigoModelo);
         
         em.getTransaction().begin();
-        em.remove(cat);
+        em.remove(est);
         em.getTransaction().commit();
-        
         return true;
     }
-    
     
 }

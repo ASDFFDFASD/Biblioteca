@@ -22,9 +22,8 @@ public class EditorialModelo {
         this.em = this.emf.createEntityManager();
     }
     
-    public Editorial crearEditorial(int codigoEditorial, String nombreEditorial){
+    public Editorial crearEditorial( String nombreEditorial){
         Editorial ed = new Editorial();
-        ed.setCodigoEditorial(codigoEditorial);
         ed.setNombreEditorial(nombreEditorial);
         
         em.getTransaction().begin();

@@ -13,35 +13,31 @@ import javax.persistence.Persistence;
  *
  * @author luis
  */
-public class CategoriaModelo {
-    
+public class IdiomaModelo {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public CategoriaModelo() {
+    public IdiomaModelo() {
         this.emf = Persistence.createEntityManagerFactory("biblioteca");
-        this.em = this.emf.createEntityManager();
+        this.em = this. emf.createEntityManager();
     }
     
-    public Categoria crearCategoria(String nombreCategoria){
-        Categoria cat = new Categoria();
-        cat.setNombreCategoria(nombreCategoria);
+    public Idioma agregarIdioma(String idioma){
+        Idioma idm = new Idioma();
+        idm.setIdioma(idioma);
         
         em.getTransaction().begin();
-        em.persist(cat);
+        em.persist(idm);
         em.getTransaction().commit();
-        
-        return cat;
+        return idm;
     }
     
-    public boolean eliminarCategoria(int codigoCategoria){
-        Categoria cat = em.find(Categoria.class, codigoCategoria);
-        
+    public boolean eliminarIdioma(int codIdiom){
+        Idioma idm = em.find(Idioma.class, codIdiom);
         
         em.getTransaction().begin();
-        em.remove(cat);
+        em.remove(idm);
         em.getTransaction().commit();
-        
         return true;
     }
     

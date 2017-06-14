@@ -8,6 +8,8 @@ package biblioteca;
 import java.util.Scanner;
 import model.Autor;
 import model.AutorModelo;
+import model.Editorial;
+import model.EditorialModelo;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Biblioteca {
         String apellidoMaterno = scanner.nextLine();
         
         // Pedirle a la capa modelo que guarde los datos del cliente
+        
         AutorModelo autorModelo = new AutorModelo();
         Autor autor = autorModelo.crearAutor(nombre,apellidoPaterno,apellidoMaterno);
        
