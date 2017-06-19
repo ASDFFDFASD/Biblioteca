@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -46,6 +48,9 @@ public class Factura implements Serializable {
     
     @Column(name = "rut_distribuidor")
     private String rutDistribuidor;
+    
+    @ManyToMany
+    @JoinTable(name = "compra_libro")
 
     public Factura() {
     }

@@ -7,13 +7,16 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -26,6 +29,14 @@ public class Libro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numero_serie")
     private int serieLibro;
+    
+    
+    
+    
+    
+    
+    
+    
     
     @Column(name = "isbn")
     private String isbn;
@@ -48,6 +59,26 @@ public class Libro implements Serializable {
     @Column(name = "cod_editorial")
     private int codigoEditorial;
 
+    
+    @ManyToMany
+    @JoinTable(name = "idioma_libro",
+            joinColumns = @JoinColumn(name = "codigo_idioma", referencedColumnName = "codigo_idioma"),
+            inverseJoinColumns = @JoinColumn(name = "serie", referencedColumnName = "numero_serie"))
+    private List<Idioma> idioma;
+    
+    @ManyToMany
+    @JoinTable(name = "categoria_libro",
+            joinColumns = @JoinColumn(name = "cod_categoria" ,referencedColumnName = "cod_categoria"),
+            inverseJoinColumns = @JoinColumn(name  =  "serie",referencedColumnName = "numero_serie"))
+    private List<Categoria> categoria;
+    
+    @ManyToMany
+    @JoinTable(name = "autor_libro",
+            joinColumns = @JoinColumn(name = "cod_autor" , referencedColumnName = "cod_autor"),
+            inverseJoinColumns = @JoinColumn(name = "serie", referencedColumnName = "numero_serie"))
+    private List<Autor> autor;
+       
+    
     public Libro() {
     }
 
