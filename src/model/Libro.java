@@ -78,6 +78,12 @@ public class Libro implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "serie", referencedColumnName = "numero_serie"))
     private List<Autor> autor;
        
+       @ManyToMany
+    @JoinTable(name = "compra_libro",
+            joinColumns = @JoinColumn(name = "numero_serie" , referencedColumnName = "numero_serie"),
+            inverseJoinColumns = @JoinColumn(name = "folio_factura", referencedColumnName = "folio_factura"))
+    private List<Autor> compra;
+  
     
     public Libro() {
     }

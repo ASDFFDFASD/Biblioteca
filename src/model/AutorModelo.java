@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 /**
  *
  * @author luis
+ * @version 1.0
  */
 public class AutorModelo {
      private EntityManagerFactory entityManagerFactory;
@@ -20,7 +21,9 @@ public class AutorModelo {
    /**
     * Constructor de AutorModelo que conecta a la base de datos
     */
-    
+    /**
+     * 
+     */
     public AutorModelo() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("biblioteca");
         this.entityManager = this.entityManagerFactory.createEntityManager();

@@ -7,11 +7,13 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 /**
  *
  * @author luis
+ * @version 1.1
  */
 @Entity
 @Table(name = "factura")
@@ -49,8 +52,7 @@ public class Factura implements Serializable {
     @Column(name = "rut_distribuidor")
     private String rutDistribuidor;
     
-    @ManyToMany
-    @JoinTable(name = "compra_libro")
+ 
 
     public Factura() {
     }

@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,22 +17,39 @@ import javax.persistence.Table;
  * @author Luis
  */
 @Entity
-@Table(name="distribuidor")
-public class Distribuidor implements Serializable{
-     @Id
-    private String rut_distribuidor;  
+@Table(name = "distribuidor")
+public class Distribuidor implements Serializable {
+
+    @Id
+    @Column(name = "rut_distribuidor")
+    private String rut_distribuidor;
+
+    @Column(name = "nombre")
+
     private String nombre;
+
+    @Column(name = "calle")
     private String calle;
+
+    @Column(name = "numero")
     private String numero;
+
+    @Column(name = "comuna")
     private String comuna;
+
+    @Column(name = "pais	")
     private String pais;
+
+    @Column(name = "fono")
     private String fono;
-    private Date ano_contrato;
+
+    @Column(name = "ano_contrato")
+    private String ano_contrato;
 
     public Distribuidor() {
     }
 
-    public Distribuidor(String rut_distribuidor, String nombre, String calle, String numero, String comuna, String pais, String fono, Date ano_contrato) {
+    public Distribuidor(String rut_distribuidor, String nombre, String calle, String numero, String comuna, String pais, String fono, String ano_contrato) {
         this.rut_distribuidor = rut_distribuidor;
         this.nombre = nombre;
         this.calle = calle;
@@ -98,20 +116,18 @@ public class Distribuidor implements Serializable{
         this.fono = fono;
     }
 
-    public Date getAno_contrato() {
+    public String getAno_contrato() {
         return ano_contrato;
     }
 
-    public void setAno_contrato(Date ano_contrato) {
+    public void setAno_contrato(String ano_contrato) {
         this.ano_contrato = ano_contrato;
     }
-    
-   
-   
+
     @Override
-    public String toString(){
-        return "Distribuidor{" + "rut_Distribuidor=" +rut_distribuidor + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero + '}'
-        + " comuna= " + comuna+ " pais= "+pais+" fono= "+fono+" año_contrato= "+ano_contrato;
+    public String toString() {
+        return "Distribuidor{" + "rut_Distribuidor=" + rut_distribuidor + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero + '}'
+                + " comuna= " + comuna + " pais= " + pais + " fono= " + fono + " año_contrato= " + ano_contrato;
     }
-    
+
 }

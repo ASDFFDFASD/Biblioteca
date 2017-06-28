@@ -18,6 +18,9 @@ public class DistribuidorModelo {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
+    /**
+     * Metodo que al instanciarse inicia la conexion con la base de datos.
+     */
     public DistribuidorModelo() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("biblioteca");
         this.entityManager = this.entityManagerFactory.createEntityManager();
@@ -35,7 +38,7 @@ public class DistribuidorModelo {
      * @return 
      */
     public Distribuidor crearDistribuidor(String rut_distribuidor, String nombre, String calle, String numero,
-            String comuna, String pais, String fono, Date ano_contrato){
+            String comuna, String pais, String fono, String ano_contrato){
         //Instanciar la clase Distribuidor, ademas de iniciarse la conexion.
         Distribuidor distribuidor = new Distribuidor();
         
@@ -58,6 +61,14 @@ public class DistribuidorModelo {
         return distribuidor;
         
     }
+    /**
+     * Metodo que recibe por parametros un "Integer" que contendra un codigo 
+     * del distribuidor, en este caso un rut, para proceder a buscarlo en la base de datos
+     * y eliminarlo.
+     * @param codigoDistribuidor Integer Contendra el rut del distribuidor.
+     * @return boolean Retornara true si se encontrado y eliminado con exito el distribuidor desde
+     * la base de datos.
+     */
     
     public boolean eliminarDistribuidor(int codigoDistribuidor){
         Distribuidor dis = entityManager.find(Distribuidor.class, codigoDistribuidor);
