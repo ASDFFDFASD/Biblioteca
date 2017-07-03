@@ -14,7 +14,7 @@ import model.Categoria;
 import model.CategoriaModelo;
 import model.Distribuidor;
 import model.DistribuidorModelo;
-import static model.Distribuidor_.ano_contrato;
+
 import model.Editorial;
 import model.EditorialModelo;
 
@@ -28,12 +28,13 @@ public class Biblioteca {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-            
+           
             MenuPrincipal menu = new MenuPrincipal();
     menu.setVisible(true);
-        // TODO code application logic here
-         // TODO code application logic here
-       /* System.out.println("Acontinuacion se haran pruebas de persistencia en");
+            
+        /*
+           
+        System.out.println("Acontinuacion se haran pruebas de persistencia en");
         System.out.println("la base de datos:");
         System.out.println("----------------------------------------------");
         System.out.println("");
@@ -42,18 +43,18 @@ public class Biblioteca {
         
         // Objeto encargado de capturar los datos
         Scanner scanner = new Scanner(System.in); 
-        System.out.print("Ingrese rut: ");
+        /*System.out.print("Ingrese Nombre: ");
         String rut = scanner.nextLine();
-        
-        System.out.print("Ingrese nombre: ");
-        String nombre = scanner.nextLine();
-        
-         System.out.print("Ingrese calle: ");
-        String calle = scanner.nextLine();
-        
-         System.out.print("Ingrese numero: ");
-        String numero = scanner.nextLine();
-        
+        */
+//        System.out.print("Ingrese nombre: ");
+//        String nombre = scanner.nextLine();
+//        
+//         System.out.print("Ingrese calle: ");
+//        String apellidoPaterno = scanner.nextLine();
+//        
+//         System.out.print("Ingrese numero: ");
+//        String apellidoMaterno = scanner.nextLine();
+        /*
          System.out.print("Ingrese comuna: ");
         String comuna = scanner.nextLine();
         
@@ -62,7 +63,7 @@ public class Biblioteca {
  
          System.out.print("Ingrese fono: ");
         String fono = scanner.nextLine();
-        
+        *//*
          System.out.print("Ingrese año contrato: ");
         String anoContrato = scanner.nextLine();
         /*System.out.print("Ingrese Apellido Materno: ");
@@ -70,16 +71,23 @@ public class Biblioteca {
         */
         // Pedirle a la capa modelo que guarde los datos del cliente
         
-       /* AutorModelo autorModelo = new AutorModelo();
-        Autor autor = autorModelo.crearAutor(nombre,apellidoPaterno,apellidoMaterno);
-       
-        System.out.println("----------------------------------------------");
-        System.out.println("Los datos han sido gurdados exitosamente");
-        System.out.println(autor.toString());
-        */
+//        AutorModelo autorModelo = new AutorModelo();
+//        Autor autor = autorModelo.crearAutor(nombre,apellidoPaterno,apellidoMaterno);
+//       
+//        System.out.println("----------------------------------------------");
+//        System.out.println("Los datos han sido gurdados exitosamente");
+//        System.out.println(autor.toString());
+//        AutorModelo autorModelo = new AutorModelo();
+//        Autor autor = autorModelo.crearAutor(nombre,apellidoPaterno,apellidoMaterno);
+//       
+//        System.out.println("----------------------------------------------");
+//        System.out.println("Los datos han sido gurdados exitosamente");
+//        System.out.println(autor.toString());
+        
        /* DistribuidorModelo distribuidor = new DistribuidorModelo();
         Distribuidor dis = distribuidor.crearDistribuidor(rut,nombre, calle, numero, comuna, pais, fono, anoContrato);
         System.out.println(dis.toString());*/
+       
     }
     
 }
