@@ -56,7 +56,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         MenuEstados = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        OptionMetodoPago = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -68,7 +68,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setType(java.awt.Window.Type.UTILITY);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Add-icon.png"))); // NOI18N
-        jButton1.setText("Nueva Venta");
+        jButton1.setText("Nueva Compra");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -135,8 +135,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(MenuEstados);
         jMenu3.add(jSeparator7);
 
-        jMenuItem10.setText("Metodos de Pago");
-        jMenu3.add(jMenuItem10);
+        OptionMetodoPago.setText("Metodos de Pago");
+        OptionMetodoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OptionMetodoPagoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(OptionMetodoPago);
 
         jMenuBar1.add(jMenu3);
 
@@ -159,7 +164,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(365, Short.MAX_VALUE)
+                .addContainerGap(357, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(31, 31, 31))
         );
@@ -206,6 +211,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
+     * Metodo que responde a cuando el boton Metodo de Pago en la cinta de Opciones es precionado.
+     * @param evt Click
+     */
+    private void OptionMetodoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionMetodoPagoActionPerformed
+    MenuMetodoPago metodoPago = new MenuMetodoPago();
+    metodoPago.setLocationRelativeTo(null);
+    metodoPago.setVisible(true);
+    metodoPago.setAlwaysOnTop(true);
+    }//GEN-LAST:event_OptionMetodoPagoActionPerformed
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -243,13 +259,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuEstados;
     private javax.swing.JMenuItem MenuSalir;
+    private javax.swing.JMenuItem OptionMetodoPago;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

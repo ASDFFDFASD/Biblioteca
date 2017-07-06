@@ -5,15 +5,21 @@
  */
 package Controllers;
 
+import model.MetodoPagoModelo;
 
-import model.EstadoModelo;
 
 /**
  *
  * @author Luis
  */
-public class Estado extends EstadoModelo{
+public class MetodoPagoController {
+   
    
     
+
+    
+
+
+
     
 }

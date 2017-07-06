@@ -71,10 +71,11 @@
                   <Component id="jScrollPane2" min="-2" pref="377" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="BtnEditar" min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="BtnEliminar" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnEditar" max="32767" attributes="0"/>
+                      <Component id="BtnEliminar" max="32767" attributes="0"/>
+                      <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,6 +85,8 @@
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="BtnEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="BtnEliminar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -97,7 +100,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="BtnEditar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar Estado"/>
+            <Property name="text" type="java.lang.String" value="Habilitar Edici&#xf3;n"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="BtnEliminar">
@@ -124,6 +127,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
