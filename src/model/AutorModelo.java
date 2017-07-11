@@ -37,7 +37,7 @@ public class AutorModelo {
      * @return Autor retorna un objeto del tipo autor
      */
     
-    public Autor crearAutor(String nombre, String apellido_paterno, String apellido_materno){
+    public boolean crearAutor(String nombre, String apellido_paterno, String apellido_materno){
         //Instanciar objeto de clase Autor
         Autor autor = new Autor();
         //Agregar los datos al objeto autor
@@ -49,7 +49,7 @@ public class AutorModelo {
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(autor);
         this.entityManager.getTransaction().commit();
-        return autor;
+        return true;
     }
     /**
      * Recibe un codigo de autor y lo busca en la base de datos para eliminarlo

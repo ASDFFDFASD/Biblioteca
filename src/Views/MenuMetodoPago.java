@@ -5,6 +5,13 @@
  */
 package Views;
 
+import Controllers.MetodoPagoController;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.MetodoPago;
+
 /**
  *
  * @author Luis
@@ -16,6 +23,7 @@ public class MenuMetodoPago extends javax.swing.JFrame {
      */
     public MenuMetodoPago() {
         initComponents();
+        llenarTabla();
     }
 
     /**
@@ -29,21 +37,21 @@ public class MenuMetodoPago extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaMetodos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        BtnGuardar = new javax.swing.JButton();
+        TxtMetodo = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Metodos de Pago"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaMetodos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -51,7 +59,7 @@ public class MenuMetodoPago extends javax.swing.JFrame {
                 "Codigo", "Descripcion"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaMetodos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,7 +86,12 @@ public class MenuMetodoPago extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Metodo"));
 
-        jButton3.setText("Guardar");
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -86,18 +99,18 @@ public class MenuMetodoPago extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 127, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(BtnGuardar))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jTextField1)
+                .addComponent(TxtMetodo)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(BtnGuardar))
         );
 
         jButton5.setText("Atras");
@@ -158,6 +171,12 @@ public class MenuMetodoPago extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+       MetodoPagoController guardar = new MetodoPagoController();
+       guardar.guardar(TxtMetodo.getText());
+        
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -194,16 +213,33 @@ public class MenuMetodoPago extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable TablaMetodos;
+    private javax.swing.JTextField TxtMetodo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TablaMetodos.setModel(modelo);
+        MetodoPagoController list = new MetodoPagoController();
+      /*  List<MetodoPago> lista = (List<MetodoPago>) list.consulta();*/
+
+        modelo.addColumn("Codigo Metodo");
+        modelo.addColumn("Descripción Metodo");
+/*
+        for (MetodoPago metodo : lista) {
+            modelo.addRow((Vector) lista);
+        }
+        */
+
+        // TablaMetodos.addColumn();
+    }
 }

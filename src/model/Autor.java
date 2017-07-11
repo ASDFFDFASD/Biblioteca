@@ -5,7 +5,7 @@
  */
 package model;
 
-import com.oracle.webservices.internal.api.EnvelopeStyle;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

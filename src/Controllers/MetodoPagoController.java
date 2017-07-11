@@ -5,21 +5,38 @@
  */
 package Controllers;
 
+import java.util.List;
+import model.MetodoPago;
 import model.MetodoPagoModelo;
-
 
 /**
  *
  * @author Luis
  */
 public class MetodoPagoController {
-   
-   
-    
 
-    
+    public MetodoPagoController() {
+    }
 
-
-
-    
+   /* public List<MetodoPago> consulta() {
+        MetodoPagoModelo obj = null;
+        List<MetodoPago> lista = (List<MetodoPago>) obj.consultarMetodos();
+        return lista;
+    }
+*/
+    public boolean guardar(String nombreMetodo){
+        boolean correcto=false;
+        if (nombreMetodo == null) {
+            correcto = false;  
+        }else if ("".equals(nombreMetodo)) {
+            correcto = false;   
+        }else{
+            
+            MetodoPagoModelo guardar = new MetodoPagoModelo();    
+            guardar.agregarMetodo(nombreMetodo);
+            correcto = true;
+        }
+        
+        return correcto;
+    }
 }

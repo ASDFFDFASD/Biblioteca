@@ -6,7 +6,7 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,11 +21,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "metodo_pago")
 public class MetodoPago implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cod_metod")
     private int codMetodo;
-    @Column(name = "descripcion")
     private String descripcionMetodo;
 
     public MetodoPago() {
@@ -51,10 +50,10 @@ public class MetodoPago implements Serializable {
     public void setDescripcionMetodo(String descripcionMetodo) {
         this.descripcionMetodo = descripcionMetodo;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Metodo Pago{ Id Metodo: " + codMetodo + ", Descripcion Metodo: " + descripcionMetodo;
     }
-    
+
 }

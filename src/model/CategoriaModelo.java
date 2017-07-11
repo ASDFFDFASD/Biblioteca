@@ -12,6 +12,8 @@ import javax.persistence.Persistence;
 /**
  *
  * @author luis
+ * @version 1.1
+ * 10-07-2017
  */
 public class CategoriaModelo {
     
@@ -33,7 +35,7 @@ public class CategoriaModelo {
      * @param nombreCategoria String Variable que guarda el nombre de la categoria.
      * @return Categoria retorna un objeto del tipo "Categoria" el cual fue guardado.
      */
-    public Categoria crearCategoria(String nombreCategoria){
+    public boolean crearCategoria(String nombreCategoria){
         Categoria cat = new Categoria();
         cat.setNombreCategoria(nombreCategoria);
         
@@ -41,7 +43,7 @@ public class CategoriaModelo {
         em.persist(cat);
         em.getTransaction().commit();
         
-        return cat;
+        return true;
     }
     
     /**

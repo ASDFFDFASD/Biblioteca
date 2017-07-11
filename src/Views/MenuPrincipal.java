@@ -119,6 +119,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(jSeparator4);
 
         jMenuItem7.setText("Categorias");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
         jMenu3.add(jSeparator5);
 
@@ -192,7 +197,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+      MenuAutor menuAutor = new MenuAutor();
+      menuAutor.setLocationRelativeTo(null);
+      menuAutor.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void MenuEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEstadosActionPerformed
@@ -220,6 +227,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     metodoPago.setVisible(true);
     metodoPago.setAlwaysOnTop(true);
     }//GEN-LAST:event_OptionMetodoPagoActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+      MenuCategoria menucat = new MenuCategoria();
+      menucat.setLocationRelativeTo(null);
+      menucat.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
