@@ -5,6 +5,9 @@
  */
 package Views;
 
+import Controllers.EstadoController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Luis
@@ -37,7 +40,7 @@ public class MenuEstado extends javax.swing.JFrame {
         BtnAgregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        TxtEstado = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,12 +94,17 @@ public class MenuEstado extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Estado"));
 
         BtnAgregar.setText("Agregar Estado");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Descripción:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        TxtEstado.setColumns(20);
+        TxtEstado.setRows(5);
+        jScrollPane1.setViewportView(TxtEstado);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,6 +165,19 @@ public class MenuEstado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        EstadoController estado = new EstadoController();
+       if( estado.agregarEstado(TxtEstado.getText())){
+           JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
+           TxtEstado.setText("");
+       }else {
+           JOptionPane.showConfirmDialog(this, "Se ha producido un error al enviar los datos.");
+       }
+        
+        
+        
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,6 +217,7 @@ public class MenuEstado extends javax.swing.JFrame {
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEditar;
     private javax.swing.JButton BtnEliminar;
+    private javax.swing.JTextArea TxtEstado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -204,6 +226,5 @@ public class MenuEstado extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

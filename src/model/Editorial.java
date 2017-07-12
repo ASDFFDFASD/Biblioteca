@@ -47,11 +47,13 @@ public class Editorial implements Serializable{
     public void setNombreEditorial(String nombreEditorial) {
         this.nombreEditorial = nombreEditorial;
     }
-    
+
     @Override
-    public String toString(){
-        return "Editorial{ Codigo Editorial: "+codigoEditorial+"\n Nombre Editorial: "+nombreEditorial;
+    public String toString() {
+        return "Editorial{" + "codigoEditorial=" + codigoEditorial + ", nombreEditorial=" + nombreEditorial + '}';
     }
+    
+
     
     
     

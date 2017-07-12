@@ -5,6 +5,13 @@
  */
 package Views;
 
+import Controllers.EditorialController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Editorial;
+import model.EditorialModelo;
+
 /**
  *
  * @author Luis
@@ -16,6 +23,8 @@ public class MenuEditorial extends javax.swing.JFrame {
      */
     public MenuEditorial() {
         initComponents();
+        actualizarTabla();
+
     }
 
     /**
@@ -29,22 +38,21 @@ public class MenuEditorial extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        TxtNombreEditorial = new javax.swing.JTextField();
+        BtnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Editoriales"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -52,7 +60,7 @@ public class MenuEditorial extends javax.swing.JFrame {
                 "Cod. Editorial", "Nombre Editorial"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,17 +77,30 @@ public class MenuEditorial extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Habilitar edición");
+        BtnEditar.setText("Guardar Cambios");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar Cambios");
-
-        jButton3.setText("Eliminar Editorial");
+        BtnEliminar.setText("Eliminar Editorial");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Editorial"));
 
         jLabel1.setText("Nombre de la editorial:");
 
-        jButton4.setText("Guardar Datos");
+        BtnGuardar.setText("Guardar Datos");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -90,10 +111,10 @@ public class MenuEditorial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
+                    .addComponent(TxtNombreEditorial)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addGap(0, 93, Short.MAX_VALUE)
+                        .addComponent(BtnGuardar)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -102,9 +123,9 @@ public class MenuEditorial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtNombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(BtnGuardar)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -121,28 +142,23 @@ public class MenuEditorial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jButton3))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton5)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(BtnEliminar)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,6 +191,36 @@ public class MenuEditorial extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+
+        EditorialModelo editorial = new EditorialModelo();
+
+        editorial.crearEditorial(TxtNombreEditorial.getText());
+
+        JOptionPane.showMessageDialog(this, "Se ha agregado correctamente los datos");
+        TxtNombreEditorial.setText("");
+        actualizarTabla();
+
+
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+       EditorialModelo edit = new EditorialModelo();
+       edit.eliminarEditorial(Integer.parseInt(String.valueOf(Table.getValueAt(Table.getSelectedRow(), 0))));
+       JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente la editorial");
+       actualizarTabla();
+       
+       
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        EditorialModelo edit = new EditorialModelo();
+        edit.editarEditorial(Integer.parseInt(String.valueOf(Table.getValueAt(Table.getSelectedRow(), 0))),
+        String.valueOf(Table.getValueAt(Table.getSelectedRow(), 1)));
+        JOptionPane.showMessageDialog(this, "Se han modificado exitosamente los datos");
+        actualizarTabla();
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,17 +258,36 @@ public class MenuEditorial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton BtnEditar;
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable Table;
+    private javax.swing.JTextField TxtNombreEditorial;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        EditorialModelo editorial = new EditorialModelo();
+
+        modelo.addColumn("Cod. Editorial");
+        modelo.addColumn("Nombre Editorial");
+
+        List<Editorial> editoriales = editorial.consultarEditoriales();
+        for (Editorial lista : editoriales) {
+            String fila[] = new String [2];
+            fila[0] = String.valueOf(lista.getCodigoEditorial());
+            fila[1] = lista.getNombreEditorial();
+            modelo.addRow(fila);
+        }
+        Table.setModel(modelo);
+        
+        
+        
+    }
 }

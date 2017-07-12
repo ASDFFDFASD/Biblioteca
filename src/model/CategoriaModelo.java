@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,7 +13,7 @@ import javax.persistence.Persistence;
 /**
  *
  * @author luis
- * @version 1.1
+ * @version 1.2
  * 10-07-2017
  */
 public class CategoriaModelo {
@@ -64,5 +65,29 @@ public class CategoriaModelo {
         return true;
     }
     
+    /**
+     * Metodo que obtiene todas las categorias de la base de datos y los retorna en un List de tipo Categorias.
+     * @return List de Categoria
+     */
+    public List<Categoria> consultarCategorias(){
+        List<Categoria> categorias = em.createQuery("Select c from Categoria c").getResultList();
+        return categorias;
+    }
+    
+    /**
+     * Modifica los valores de una Categoria dentro de la Base de datos, reemplazandolos por los pasados por los parametros.
+     * @param codCategoria Int codigo e ID de la categoria dentro de la base de datos.
+     * @param nombreCategoria String Nombre de la categoria.
+     * @return boolean TRUE si se ha modificado correctamente la categoria en la BD.
+     */
+    public boolean editarCategoria(int codCategoria, String nombreCategoria){
+        Categoria cat = em.find(Categoria.class, codCategoria);
+        cat.setNombreCategoria(nombreCategoria);
+        
+        em.getTransaction().begin();
+        em.merge(cat);
+        em.getTransaction().commit();
+        return true;
+}
     
 }

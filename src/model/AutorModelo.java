@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -66,4 +67,28 @@ public class AutorModelo {
         
         return true;
     }
+    /**
+     * Metodo que busca todos los autores disponibles en la BD y los devuelve en Forma de List de Autor.
+     * @return List de objeto Autor.
+     */
+    public List<Autor> buscarAutores(){       
+             List<Autor> autores = entityManager.createQuery("Select a from Autor a").getResultList();
+             return autores;
+    }
+    
+    public boolean editarAutor(int codAutor, String nombreAutor, String apellidoPaterno, String apellidoMaterno){
+        boolean correcto = false;
+        Autor autor = this.entityManager.find(Autor.class, codAutor);
+      
+        
+        this.entityManager.getTransaction().begin();
+          autor.setNombre(nombreAutor);
+        autor.setApellido_paterno(apellidoPaterno);
+        autor.setApellido_materno(apellidoMaterno);
+        this.entityManager.merge(autor);
+        this.entityManager.getTransaction().commit();
+ 
+        return correcto;
+    }
+            
 }

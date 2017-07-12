@@ -5,9 +5,13 @@
  */
 package Views;
 
-import Controllers.CategoriaController;
+
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.scripts.JO;
+import model.Categoria;
+import model.CategoriaModelo;
 
 /**
  *
@@ -20,6 +24,7 @@ public class MenuCategoria extends javax.swing.JFrame {
      */
     public MenuCategoria() {
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -33,22 +38,21 @@ public class MenuCategoria extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TxtCategoria = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        BtnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Categorias"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -56,7 +60,7 @@ public class MenuCategoria extends javax.swing.JFrame {
                 "Cod. Categoria", "Categoria"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,20 +80,28 @@ public class MenuCategoria extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Habilitar Edición");
+        BtnEditar.setText("Guardar Cambios");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar Cambios");
-
-        jButton3.setText("Eliminar Categoria");
+        BtnEliminar.setText("Eliminar Categoria");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Categoria"));
 
         jLabel1.setText("Nombre Categoria:");
 
-        jButton4.setText("Guardar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnGuardarActionPerformed(evt);
             }
         });
 
@@ -105,7 +117,7 @@ public class MenuCategoria extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(BtnGuardar)
                 .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
@@ -115,7 +127,7 @@ public class MenuCategoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TxtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(BtnGuardar)
                 .addGap(0, 18, Short.MAX_VALUE))
         );
 
@@ -124,24 +136,20 @@ public class MenuCategoria extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 121, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(BtnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -183,10 +191,10 @@ public class MenuCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       CategoriaController cat = new CategoriaController();
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+       CategoriaModelo cat = new CategoriaModelo();
        boolean correct = false;
-       correct = cat.agregarCategoria(TxtCategoria.getText());
+       correct = cat.crearCategoria(TxtCategoria.getText());
         if (correct) {
             JOptionPane.showMessageDialog(this, "Categoria agregada correctamente.");
             TxtCategoria.setText("");
@@ -195,8 +203,31 @@ public class MenuCategoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar ingresar la nueva categoria");
         }
         
+        actualizarTabla();
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        CategoriaModelo cat = new CategoriaModelo();
+        cat.eliminarCategoria(Integer.parseInt(String.valueOf( Tabla.getValueAt(Tabla.getSelectedRow(), 0))));
+        JOptionPane.showMessageDialog(this, "Mensaje eliminado correctamente");
+        actualizarTabla();
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+      
+        CategoriaModelo cat = new CategoriaModelo();
+      
+
+            cat.editarCategoria(Integer.parseInt(String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 0))),
+                    String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 1)));
+            
+     
+            
+            JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
+            actualizarTabla();
         
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,17 +265,37 @@ public class MenuCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEditar;
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable Tabla;
     private javax.swing.JTextField TxtCategoria;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+/**
+ * Obtiene todos los datos de la Base de datos y los coloca en la Tabla.
+ */
+    private void actualizarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        CategoriaModelo cat = new CategoriaModelo();
+        modelo.addColumn("Cod. Categoria");
+        modelo.addColumn("Nombre Categoria");
+        
+       
+        
+        List<Categoria> categorias = cat.consultarCategorias();
+        for (Categoria lista : categorias) {
+             String[] fila = new String[2];
+            fila[0] = String.valueOf(lista.getCodigoCategoria());
+            fila[1] = lista.getNombreCategoria();
+            
+            modelo.addRow(fila);
+        }
+         Tabla.setModel(modelo);
+    }
 }

@@ -6,6 +6,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,7 +36,7 @@ public class DistribuidorModelo {
      * @param pais String Nombre del pais donde esta ubicado el distribuidor
      * @param fono String Numero de contacto del distribuidor 
      * @param ano_contrato Date Fecha desde la cual el distribuidor inicio trabajos con la empresa.
-     * @return 
+     * @return Distribuidor Retorna el objeto guardado en la base de datos
      */
     public Distribuidor crearDistribuidor(String rut_distribuidor, String nombre, String calle, String numero,
             String comuna, String pais, String fono, String ano_contrato){
@@ -70,13 +71,50 @@ public class DistribuidorModelo {
      * la base de datos.
      */
     
-    public boolean eliminarDistribuidor(int codigoDistribuidor){
+    public boolean eliminarDistribuidor(String codigoDistribuidor){
         Distribuidor dis = entityManager.find(Distribuidor.class, codigoDistribuidor);
         
         entityManager.getTransaction().begin();
         entityManager.remove(dis);
         entityManager.getTransaction().commit();
         return true;
+    }
+    /**
+     * Obtiene los distribuidores de la BD y los devuelve en un List de tipo Distribuidor.
+     * @return List de tipo Distribuidor
+     */
+    public List<Distribuidor> consultarDistribuidores(){
+        List<Distribuidor> distribuidores = entityManager.createQuery("Select d from Distribuidor d").getResultList();
+        return distribuidores;
+    }
+    
+    /**
+     * Busca y edita los valores del distribuidor dentro de la Bd, mediante su rut.
+     * @param rutDistribuidor String Rut e ID del distribuidor
+     * @param nombreDistribuidor String Nombre del Distribuidor
+     * @param calleDistribuidor String Calle del Distribuidor
+     * @param numeroCalle String Numero de calle del distribuidor.
+     * @param comuna String Comuna del distribuidor
+     * @param pais String Pais del distribuidor
+     * @param fono String Fono de contacto del distribuidor
+     * @param anoContrato String ano de inicio de contrato con el distribuidor
+     * @return boolean retorna true si el se han editado correctamente los valores del distribuidor en la BD.
+     */
+    public boolean EditarDistribuidor(String rutDistribuidor, String nombreDistribuidor, String calleDistribuidor, String numeroCalle, String comuna,
+            String pais, String fono, String anoContrato){
+        Distribuidor dis = entityManager.find(Distribuidor.class, rutDistribuidor);
+        
+        dis.setNombre(nombreDistribuidor);
+        dis.setCalle(calleDistribuidor);
+        dis.setNumero(numeroCalle);
+        dis.setComuna(comuna);
+        dis.setPais(pais);
+        dis.setFono(fono);
+        dis.setAno_contrato(anoContrato);
+        entityManager.getTransaction().begin();
+        entityManager.merge(dis);
+        entityManager.getTransaction().commit();
+        return true;     
     }
     
 }

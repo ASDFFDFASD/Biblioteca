@@ -5,8 +5,11 @@
  */
 package Views;
 
-import Controllers.AutorController;
+import java.util.List;
+
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Autor;
 import model.AutorModelo;
 
 /**
@@ -20,6 +23,8 @@ public class MenuAutor extends javax.swing.JFrame {
      */
     public MenuAutor() {
         initComponents();
+
+        actualizarAutores();
     }
 
     /**
@@ -33,11 +38,10 @@ public class MenuAutor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaAutores = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnEliminarAutor = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -45,14 +49,14 @@ public class MenuAutor extends javax.swing.JFrame {
         TxtNombre = new javax.swing.JTextField();
         TxtApellidoPaterno = new javax.swing.JTextField();
         TxtApellidoMaterno = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        BtnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Autores"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaAutores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -60,7 +64,7 @@ public class MenuAutor extends javax.swing.JFrame {
                 "Cod. Autor", "Nombre", "Apellido Paterno", "Apellido Materno"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaAutores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,11 +79,19 @@ public class MenuAutor extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Habilitar Edición");
+        BtnEliminarAutor.setText("Eliminar Autor");
+        BtnEliminarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarAutorActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Eliminar Autor");
-
-        jButton3.setText("Guardar Cambios");
+        BtnEditar.setText("Guardar Cambios");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Autor"));
 
@@ -95,10 +107,10 @@ public class MenuAutor extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Guardar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnGuardarActionPerformed(evt);
             }
         });
 
@@ -114,8 +126,8 @@ public class MenuAutor extends javax.swing.JFrame {
                     .addComponent(TxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addComponent(TxtApellidoPaterno)
                     .addComponent(TxtApellidoMaterno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(BtnGuardar)
                 .addGap(60, 60, 60))
         );
         jPanel3Layout.setVerticalGroup(
@@ -133,7 +145,7 @@ public class MenuAutor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(BtnGuardar))
                 .addContainerGap())
         );
 
@@ -144,34 +156,33 @@ public class MenuAutor extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(BtnEliminarAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(4, 4, 4)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(BtnEditar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(BtnEliminarAutor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
@@ -202,23 +213,52 @@ public class MenuAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TxtApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoMaternoActionPerformed
-        
+
     }//GEN-LAST:event_TxtApellidoMaternoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    AutorController autor = new AutorController();
-    boolean guardado = false;
-    guardado  =  autor.nuevoAutor(TxtNombre.getText(),TxtApellidoPaterno.getText(), TxtApellidoMaterno.getText());
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        AutorModelo autor = new AutorModelo();
+        boolean guardado = false;
+        guardado = autor.crearAutor(TxtNombre.getText(), TxtApellidoPaterno.getText(), TxtApellidoMaterno.getText());
         if (guardado) {
             JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
             TxtNombre.setText("");
             TxtApellidoPaterno.setText("");
             TxtApellidoMaterno.setText("");
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Error al guardar los datos en la Base de Datos.");
         }
+        actualizarAutores();
+
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnEliminarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarAutorActionPerformed
+        AutorModelo autor = new AutorModelo();
+        int codAutor = Integer.parseInt(String.valueOf(TablaAutores.getValueAt(TablaAutores.getSelectedRow(), 0)));
+
+        if (autor.eliminarAutor(codAutor)) {
+            JOptionPane.showMessageDialog(this, "Se ha eliminado con exito el autor");
+            actualizarAutores();
+        } else {
+            JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar eliminar el autor");
+        }
+    }//GEN-LAST:event_BtnEliminarAutorActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        AutorModelo autor = new AutorModelo();
+      
+
+            autor.editarAutor(Integer.parseInt(String.valueOf(TablaAutores.getValueAt(TablaAutores.getSelectedRow(), 0))),
+                    (String.valueOf(TablaAutores.getValueAt(TablaAutores.getSelectedRow(), 1))), 
+                    (String.valueOf(TablaAutores.getValueAt(TablaAutores.getSelectedRow(), 2))),
+                    (String.valueOf(TablaAutores.getValueAt(TablaAutores.getSelectedRow(), 3))));
+            
+     
+            
+            JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
+            actualizarAutores();
         
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,13 +296,13 @@ public class MenuAutor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEditar;
+    private javax.swing.JButton BtnEliminarAutor;
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable TablaAutores;
     private javax.swing.JTextField TxtApellidoMaterno;
     private javax.swing.JTextField TxtApellidoPaterno;
     private javax.swing.JTextField TxtNombre;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -271,6 +311,29 @@ public class MenuAutor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Metodo que actualiza la tabla de los autores.
+     */
+    private void actualizarAutores() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        AutorModelo autores = new AutorModelo();
+        List<Autor> listaAutores = autores.buscarAutores();
+        modelo.addColumn("Cod. Autor");
+        modelo.addColumn("Nombre Autor");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno");
+        for (Autor lista : listaAutores) {
+            String[] fila = new String[4];
+            fila[0] = String.valueOf(lista.getCod_autor());
+            fila[1] = lista.getNombre();
+            fila[2] = lista.getApellido_paterno();
+            fila[3] = lista.getApellido_materno();
+            modelo.addRow(fila);
+
+        }
+        TablaAutores.setModel(modelo);
+
+    }
 }

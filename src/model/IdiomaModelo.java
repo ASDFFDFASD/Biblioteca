@@ -4,15 +4,17 @@
  * and open the template in the editor.
  */
 package model;
-
+import java.util.List;
+import model.Idioma;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
  *
- * @author 
- * @version 1.0
+ * @author Luis
+ * @version 1.2
+ * 7-07-2017
  */
 public class IdiomaModelo {
     private EntityManagerFactory emf;
@@ -29,14 +31,14 @@ public class IdiomaModelo {
      * @param idioma String contiene el nombre del idioma el cual va ha ser ingresado a la base de datos.
      * @return  Idioma objeto idioma, que contiene los datos del objeto ingresado.
      */
-    public Idioma agregarIdioma(String idioma){
+    public boolean agregarIdioma(String idioma){
         Idioma idm = new Idioma();
         idm.setIdioma(idioma);
         
         em.getTransaction().begin();
         em.persist(idm);
         em.getTransaction().commit();
-        return idm;
+        return true;
     }
     
     /**
@@ -52,6 +54,30 @@ public class IdiomaModelo {
         em.getTransaction().commit();
         return true;
     }
+    /**
+     * Retorna todos los Idioomas contenidos en la BD en forma de un List de tipo Idioma.
+     * @return List de tipo Idioma.
+     */
+    public List<Idioma> consultarIdiomas(){
+        List<Idioma> idiomas = em.createQuery("Select i from Idioma i").getResultList();
+        return idiomas;
+    }
     
+    /**
+     * Busca un Idioma mediante el ID en la BD y lo edita con los nuevos datos.
+     * @param codIdioma int ID del idioma
+     * @param lengua String Nuevo dato a guardar en la BD
+     * @return boolean Retorna true si se ha realizado la edicion correctamente.
+     */
+    public boolean editarIdioma(int codIdioma, String lengua){
+        Idioma idioma = em.find(Idioma.class, codIdioma);
+        
+        idioma.setIdioma(lengua);
+        em.getTransaction().begin();
+        em.merge(idioma);
+        em.getTransaction().commit();
+       return true; 
+        
+    }
     
 }

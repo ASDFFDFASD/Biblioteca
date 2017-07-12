@@ -5,19 +5,18 @@
  */
 package model;
 
-import java.awt.Component;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author luis
- * @version 1.0
+ * @version 1.1
+ * 07-07-2017
  */
 public class MetodoPagoModelo {
 
@@ -68,19 +67,32 @@ public class MetodoPagoModelo {
         this.em.getTransaction().commit();
         return true;
     }
-
+    
     /**
-     * Consulta a la base de datos que retorna los metodos contenidos en ella.
-     *
-     * @return List<MetodoPago> Retorna una lista del tipo metodo de pago con
-     * los valores de la base de datos.
+     * Busca un Metodo de Pago en la BD y lo edita por los nuevos valores.
+     * @param codMetodo int ID del Metodo de Pago.
+     * @param nombreMetodo String Nuevo valor a guardar.
+     * @return boolean Retorna true si se ha realizado la edicion exitosamente.
      */
-    public Class<MetodoPago> consultarMetodos() {
-
-        ArrayList<MetodoPago> metodos;
+    public boolean editarMetodo(int codMetodo, String nombreMetodo){
+        MetodoPago metodo = em.find(MetodoPago.class, codMetodo);
+        metodo.setDescripcionMetodo(nombreMetodo);
+        
         em.getTransaction().begin();
-        Class<MetodoPago> merge = em.merge(MetodoPago.class);
-
-        return merge;
+        em.merge(metodo);
+        em.getTransaction().commit();
+        
+        return true;
     }
+    
+    /**
+     * Obtiene todos los metodos de pago de la BD y los devuelve en forma de List de tipo MetodoPago.
+     * @return List de tipo MetodoPago.
+     */
+    public List<MetodoPago> consultarMetodos(){
+        List<MetodoPago> metodos = em.createQuery("Select m from MetodoPago m").getResultList();
+        return metodos;
+    }
+
+    
 }

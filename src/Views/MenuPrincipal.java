@@ -57,6 +57,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         MenuEstados = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         OptionMetodoPago = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -102,6 +104,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(jSeparator1);
 
         jMenuItem4.setText("Distribuidores");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
         jMenu3.add(jSeparator2);
 
@@ -115,6 +122,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(jSeparator3);
 
         jMenuItem6.setText("Libros");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
         jMenu3.add(jSeparator4);
 
@@ -128,6 +140,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(jSeparator5);
 
         jMenuItem8.setText("Idiomas");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem8);
         jMenu3.add(jSeparator6);
 
@@ -147,6 +164,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(OptionMetodoPago);
+        jMenu3.add(jSeparator8);
+
+        jMenuItem1.setText("Editoriales");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
 
@@ -199,11 +225,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
       MenuAutor menuAutor = new MenuAutor();
       menuAutor.setLocationRelativeTo(null);
+      menuAutor.setAlwaysOnTop(true);
       menuAutor.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void MenuEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEstadosActionPerformed
-         
+        MenuEstado menu = new MenuEstado();
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
     }//GEN-LAST:event_MenuEstadosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -231,8 +260,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
       MenuCategoria menucat = new MenuCategoria();
       menucat.setLocationRelativeTo(null);
+      menucat.setAlwaysOnTop(true);
       menucat.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+     MenuDistribuidor menuDis = new MenuDistribuidor();
+     menuDis.setLocationRelativeTo(null);
+     menuDis.setAlwaysOnTop(true);
+     menuDis.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       MenuEditorial menu = new MenuEditorial();
+       menu.setLocationRelativeTo(null);
+       menu.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+       MenuLibro libro = new MenuLibro();
+       libro.setLocationRelativeTo(null);
+       libro.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+ 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+       MenuIdioma menu = new MenuIdioma();
+       menu.setLocationRelativeTo(null);
+       menu.setAlwaysOnTop(true);
+       menu.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,6 +335,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -293,5 +350,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     // End of variables declaration//GEN-END:variables
 }

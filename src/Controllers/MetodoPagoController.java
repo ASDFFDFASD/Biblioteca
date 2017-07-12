@@ -14,16 +14,11 @@ import model.MetodoPagoModelo;
  * @author Luis
  */
 public class MetodoPagoController {
-
-    public MetodoPagoController() {
-    }
-
-   /* public List<MetodoPago> consulta() {
-        MetodoPagoModelo obj = null;
-        List<MetodoPago> lista = (List<MetodoPago>) obj.consultarMetodos();
-        return lista;
-    }
-*/
+/**
+ * Metodo de agregar que ingresa un nuevo metodo de pago conectando La vista con el modelo.
+ * @param nombreMetodo String Nombre del nuevo Metodo.
+ * @return  boolean Retorna true si se han ingresado los nuevos datos.
+ */
     public boolean guardar(String nombreMetodo){
         boolean correcto=false;
         if (nombreMetodo == null) {

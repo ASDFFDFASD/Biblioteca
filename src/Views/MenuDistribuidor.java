@@ -5,6 +5,13 @@
  */
 package Views;
 
+import Controllers.DistribuidorController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Distribuidor;
+import model.DistribuidorModelo;
+
 /**
  *
  * @author Luis
@@ -16,6 +23,8 @@ public class MenuDistribuidor extends javax.swing.JFrame {
      */
     public MenuDistribuidor() {
         initComponents();
+        
+        actualizarTabla();
     }
 
     /**
@@ -29,37 +38,36 @@ public class MenuDistribuidor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtrutDistribuidor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TxtNombreDistribuidor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        TxtCalle = new javax.swing.JTextField();
+        TxtNumero = new javax.swing.JTextField();
+        TxtComuna = new javax.swing.JTextField();
+        TxtPais = new javax.swing.JTextField();
+        TxtFono = new javax.swing.JTextField();
+        TxtAnoContrato = new javax.swing.JTextField();
+        BtnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Distribuidores"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -67,7 +75,7 @@ public class MenuDistribuidor extends javax.swing.JFrame {
                 "Rut Distribuidor", "Nombre Distribuidor", "Calle", "Numero", "Comuna", "País", "Fono", "Año Contrato"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,33 +92,37 @@ public class MenuDistribuidor extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton1.setText("Habilitar Edición");
+        BtnEditar.setText("Guardar Cambios");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar Cambios");
-
-        jButton3.setText("Eliminar Distribuidor");
+        BtnEliminar.setText("Eliminar Distribuidor");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnEliminar)
+                    .addComponent(BtnEditar))
+                .addGap(0, 129, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(BtnEliminar)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -132,19 +144,24 @@ public class MenuDistribuidor extends javax.swing.JFrame {
 
         jLabel8.setText("Año Contrato:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        TxtCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                TxtCalleActionPerformed(evt);
             }
         });
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        TxtAnoContrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                TxtAnoContratoActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Guardar");
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -163,16 +180,16 @@ public class MenuDistribuidor extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField7)
-                    .addComponent(jTextField8))
+                    .addComponent(TxtrutDistribuidor, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                    .addComponent(TxtCalle)
+                    .addComponent(TxtNombreDistribuidor)
+                    .addComponent(TxtNumero)
+                    .addComponent(TxtComuna)
+                    .addComponent(TxtPais)
+                    .addComponent(TxtFono)
+                    .addComponent(TxtAnoContrato))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(BtnGuardar)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -180,36 +197,36 @@ public class MenuDistribuidor extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtrutDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtNombreDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtComuna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtFono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4)))
+                    .addComponent(TxtAnoContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnGuardar)))
         );
 
         jButton5.setText("Atras");
@@ -262,13 +279,72 @@ public class MenuDistribuidor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void TxtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_TxtCalleActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void TxtAnoContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtAnoContratoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_TxtAnoContratoActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+       DistribuidorController nuevodis = new DistribuidorController();
+       nuevodis.agregarDistribuidor(TxtrutDistribuidor.getText(), 
+               TxtNombreDistribuidor.getText(),
+               TxtCalle.getText(), 
+               TxtNumero.getText(), 
+               TxtComuna.getText(), 
+               TxtPais.getText(), 
+               TxtFono.getText(),
+               TxtAnoContrato.getText());
+       
+        JOptionPane.showMessageDialog(this, "Distribuidor ingresado correctamente");
+        TxtrutDistribuidor.setText("");
+        TxtNombreDistribuidor.setText("");
+        TxtCalle.setText("");
+        TxtNumero.setText("");
+        TxtComuna.setText("");
+        TxtPais.setText("");
+        TxtFono.setText("");
+        TxtAnoContrato.setText("");
+        actualizarTabla();
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+       
+            DistribuidorModelo dis = new DistribuidorModelo();
+        String rut = (String) Tabla.getValueAt(Tabla.getSelectedRow(), 0);
+
+        if (dis.eliminarDistribuidor(rut)) {
+            JOptionPane.showMessageDialog(this, "Se ha eliminado con exito el Distribuidor");
+            actualizarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar eliminar el distribuidor");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+      DistribuidorModelo dis = new DistribuidorModelo();
+      
+      dis.EditarDistribuidor(String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 0)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 1)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 2)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 3)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 4)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 5)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 6)),
+              String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 7)));
+      
+      JOptionPane.showMessageDialog(this, "Se ha modificado correctamente los datos");
+      actualizarTabla();
+        
+        
+        
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,10 +382,18 @@ public class MenuDistribuidor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton BtnEditar;
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable Tabla;
+    private javax.swing.JTextField TxtAnoContrato;
+    private javax.swing.JTextField TxtCalle;
+    private javax.swing.JTextField TxtComuna;
+    private javax.swing.JTextField TxtFono;
+    private javax.swing.JTextField TxtNombreDistribuidor;
+    private javax.swing.JTextField TxtNumero;
+    private javax.swing.JTextField TxtPais;
+    private javax.swing.JTextField TxtrutDistribuidor;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -324,14 +408,36 @@ public class MenuDistribuidor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla() {
+        DefaultTableModel model = new DefaultTableModel();
+        DistribuidorModelo dis = new DistribuidorModelo();
+        model.addColumn("Rut");
+        model.addColumn("Nombre");
+        model.addColumn("Calle");
+        model.addColumn("Numero");
+        model.addColumn("Comuna");
+        model.addColumn("País");
+        model.addColumn("Fono");
+        model.addColumn("Año Contrato");
+        
+        List<Distribuidor> distribuidores = dis.consultarDistribuidores();
+        for (Distribuidor lista : distribuidores) {
+             String[] fila = new String[8];
+            fila[0] = lista.getRut_distribuidor();
+            fila[1] = lista.getNombre();
+            fila[2] = lista.getCalle();
+            fila[3] = lista.getNumero();
+            fila[4] = lista.getComuna();
+            fila[5] = lista.getPais();
+            fila[6] = lista.getFono();
+            fila[7] = lista.getAno_contrato();
+            
+            model.addRow(fila);
+
+        }
+        Tabla.setModel(model);
+        
+    }
 }
