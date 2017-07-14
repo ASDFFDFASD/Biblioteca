@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 /**
  *
  * @author luis
- * @version 1.1
+ * @version 1.1 
  */
 public class LibroModelo {
     private EntityManagerFactory emf;

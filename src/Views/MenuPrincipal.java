@@ -92,7 +92,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Edición");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Opciones");
+        jMenu3.setText("Menus");
 
         jMenuItem3.setText("Compras");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +226,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
       MenuAutor menuAutor = new MenuAutor();
       menuAutor.setLocationRelativeTo(null);
       menuAutor.setAlwaysOnTop(true);
-      menuAutor.setVisible(true);
+     menuAutor.setVisible(true);
+      
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void MenuEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEstadosActionPerformed

@@ -6,7 +6,12 @@
 package Views;
 
 import Controllers.EstadoController;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Estado;
+import model.EstadoModelo;
+import model.IdiomaModelo;
 
 /**
  *
@@ -19,6 +24,7 @@ public class MenuEstado extends javax.swing.JFrame {
      */
     public MenuEstado() {
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -31,10 +37,9 @@ public class MenuEstado extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BtnEditar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnAgregar = new javax.swing.JButton();
@@ -47,11 +52,14 @@ public class MenuEstado extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones de Estados"));
 
-        BtnEditar.setText("Habilitar Edición");
-
         BtnEliminar.setText("Eliminar Estado");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -59,9 +67,14 @@ public class MenuEstado extends javax.swing.JFrame {
                 "Codigo Estado", "Descripción Estado"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(Tabla);
 
         jButton2.setText("Guardar Cambios");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,7 +84,6 @@ public class MenuEstado extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -79,9 +91,7 @@ public class MenuEstado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(BtnEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(58, 58, 58)
                 .addComponent(jButton2)
                 .addGap(10, 10, 10)
                 .addComponent(BtnEliminar)
@@ -173,10 +183,27 @@ public class MenuEstado extends javax.swing.JFrame {
        }else {
            JOptionPane.showConfirmDialog(this, "Se ha producido un error al enviar los datos.");
        }
+       actualizarTabla();
         
         
         
     }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+     IdiomaModelo idiom = new IdiomaModelo();
+     idiom.eliminarIdioma(Integer.parseInt((String) Tabla.getValueAt(Tabla.getSelectedRow(), 0)));
+     JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el estado de la BD.");
+     actualizarTabla();
+             
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        IdiomaModelo idiom = new IdiomaModelo();
+        idiom.editarIdioma(Integer.parseInt((String) Tabla.getValueAt(Tabla.getSelectedRow(), 0)),
+                String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 1)));
+        JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
+        actualizarTabla();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,8 +242,8 @@ public class MenuEstado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregar;
-    private javax.swing.JButton BtnEditar;
     private javax.swing.JButton BtnEliminar;
+    private javax.swing.JTable Tabla;
     private javax.swing.JTextArea TxtEstado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -225,6 +252,22 @@ public class MenuEstado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla() {
+        EstadoModelo estado = new EstadoModelo();
+        DefaultTableModel modelo = new DefaultTableModel();
+        List<Estado> estados = estado.consultarEstados();
+        
+        modelo.addColumn("Cod Estado");
+        modelo.addColumn("Estado");
+        for (Estado lista : estados) {
+            String[] fila = new String[2];
+            fila[0] = String.valueOf(lista.getIdEstado());
+            fila[1] = lista.getDescripcionEstado();
+            modelo.addRow(fila);
+        }
+        Tabla.setModel(modelo);
+        
+    }
 }

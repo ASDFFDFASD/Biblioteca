@@ -193,15 +193,13 @@ public class MenuCategoria extends javax.swing.JFrame {
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
        CategoriaModelo cat = new CategoriaModelo();
-       boolean correct = false;
-       correct = cat.crearCategoria(TxtCategoria.getText());
-        if (correct) {
+      
+        cat.crearCategoria(TxtCategoria.getText());
+        
             JOptionPane.showMessageDialog(this, "Categoria agregada correctamente.");
             TxtCategoria.setText("");
             
-        }else {
-            JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar ingresar la nueva categoria");
-        }
+       
         
         actualizarTabla();
     }//GEN-LAST:event_BtnGuardarActionPerformed

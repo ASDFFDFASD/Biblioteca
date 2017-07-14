@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 /**
  *
  * @author Luis
+ * @version 1.2 12-07-2017
  */
 public class DistribuidorModelo {
     private EntityManagerFactory entityManagerFactory;

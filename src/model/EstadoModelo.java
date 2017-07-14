@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 /**
  * 
  * @author luis
- * @version 1.2
+ * @version 1.2 10-07-2017
  */
 public class EstadoModelo {
     private EntityManagerFactory emf;

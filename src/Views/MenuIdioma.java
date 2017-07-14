@@ -6,7 +6,11 @@
 package Views;
 
 import Controllers.IdiomaController;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Idioma;
+import model.IdiomaModelo;
 
 /**
  *
@@ -19,6 +23,7 @@ public class MenuIdioma extends javax.swing.JFrame {
      */
     public MenuIdioma() {
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -32,20 +37,19 @@ public class MenuIdioma extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         TxtIdioma = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        BtnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de idioma"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -53,7 +57,7 @@ public class MenuIdioma extends javax.swing.JFrame {
                 "Codigo", "Descripción"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,18 +72,26 @@ public class MenuIdioma extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Habilitar Edición");
+        BtnEditar.setText("Guardar Cambios");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar Cambios");
-
-        jButton3.setText("Eliminar Idioma");
+        BtnEliminar.setText("Eliminar Idioma");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Idioma"));
 
-        jButton4.setText("Guardar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnGuardarActionPerformed(evt);
             }
         });
 
@@ -92,7 +104,7 @@ public class MenuIdioma extends javax.swing.JFrame {
                     .addComponent(TxtIdioma)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addComponent(BtnGuardar)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -100,7 +112,7 @@ public class MenuIdioma extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(TxtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4))
+                .addComponent(BtnGuardar))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -108,24 +120,21 @@ public class MenuIdioma extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2))
-                        .addComponent(jButton3)))
+                            .addComponent(BtnEliminar)
+                            .addGap(125, 125, 125)))
+                    .addComponent(BtnEditar))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(BtnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -152,15 +161,34 @@ public class MenuIdioma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         IdiomaController idioma = new IdiomaController();
         if (idioma.agregarIdioma(TxtIdioma.getText())) {
             JOptionPane.showMessageDialog(this, "Se han agregado correctamente los datos");
             TxtIdioma.setText("");
+            actualizarTabla();
         }else{
             JOptionPane.showMessageDialog(this, "Se ha producido un error al guardar los datos.");
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        IdiomaModelo idiom = new IdiomaModelo();
+        idiom.eliminarIdioma(Integer.parseInt( String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 0))));
+        JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el Idioma de la BD.");
+        actualizarTabla();
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        IdiomaModelo idiom = new IdiomaModelo();
+        idiom.editarIdioma(Integer.parseInt((String) Tabla.getValueAt(Tabla.getSelectedRow(), 0)),
+                (String) Tabla.getValueAt(Tabla.getSelectedRow(), 1));
+        
+        JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
+        actualizarTabla();
+        
+        
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,15 +226,32 @@ public class MenuIdioma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEditar;
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JTable Tabla;
     private javax.swing.JTextField TxtIdioma;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla() {
+        IdiomaModelo idiom = new  IdiomaModelo();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Cod Idioma");
+        modelo.addColumn("Lengua");
+        
+        List<Idioma> idiomas = idiom.consultarIdiomas();
+        for (Idioma lista : idiomas) {
+            String[] fila = new String[2];
+            fila[0] = String.valueOf(lista.getCodIdioma());
+            fila[1] = lista.getIdioma();
+            
+            modelo.addRow(fila);
+        }
+        
+        Tabla.setModel(modelo);
+    }
 }

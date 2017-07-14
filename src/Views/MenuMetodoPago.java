@@ -7,10 +7,11 @@ package Views;
 
 import Controllers.MetodoPagoController;
 import java.util.List;
-import java.util.Vector;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MetodoPago;
+import model.MetodoPagoModelo;
 
 /**
  *
@@ -23,7 +24,7 @@ public class MenuMetodoPago extends javax.swing.JFrame {
      */
     public MenuMetodoPago() {
         initComponents();
-        llenarTabla();
+        actualizarTabla();
     }
 
     /**
@@ -37,11 +38,10 @@ public class MenuMetodoPago extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaMetodos = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
+        Btneliminar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         BtnGuardar = new javax.swing.JButton();
         TxtMetodo = new javax.swing.JTextField();
@@ -51,7 +51,7 @@ public class MenuMetodoPago extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Metodos de Pago"));
 
-        TablaMetodos.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -59,7 +59,7 @@ public class MenuMetodoPago extends javax.swing.JFrame {
                 "Codigo", "Descripcion"
             }
         ));
-        jScrollPane1.setViewportView(TablaMetodos);
+        jScrollPane1.setViewportView(Tabla);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,11 +78,14 @@ public class MenuMetodoPago extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones "));
 
-        jButton1.setText("Habilitar Edición");
+        BtnEditar.setText("Guardar Cambios");
 
-        jButton2.setText("Guardar Cambios");
-
-        jButton4.setText("Eliminar Metodo");
+        Btneliminar.setText("Eliminar Metodo");
+        Btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtneliminarActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Metodo"));
 
@@ -121,25 +124,21 @@ public class MenuMetodoPago extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jButton4)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(BtnEditar)
+                        .addComponent(Btneliminar)))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(BtnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(Btneliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -171,11 +170,29 @@ public class MenuMetodoPago extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *  Evento que guarda los datos desde la vista hacia la BD.
+     * @param evt Click en el elemento
+     */
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-       MetodoPagoController guardar = new MetodoPagoController();
-       guardar.guardar(TxtMetodo.getText());
+       MetodoPagoModelo metodo = new MetodoPagoModelo();
+       metodo.agregarMetodo(TxtMetodo.getText());
+       JOptionPane.showMessageDialog(this, "Se han guardado los datos en la BD.");
+       actualizarTabla();
+       
         
     }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    /**
+     * Evento que permite eliminar un metodo de la BD.
+     * @param evt Click en el Elemento
+     */
+    private void BtneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtneliminarActionPerformed
+        MetodoPagoModelo metodo = new MetodoPagoModelo();
+        metodo.eliminarMetodo(Integer.parseInt(String.valueOf(Tabla.getValueAt(Tabla.getSelectedRow(), 0))));
+        JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el metodo");
+        actualizarTabla();
+    }//GEN-LAST:event_BtneliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,12 +230,11 @@ public class MenuMetodoPago extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEditar;
     private javax.swing.JButton BtnGuardar;
-    private javax.swing.JTable TablaMetodos;
+    private javax.swing.JButton Btneliminar;
+    private javax.swing.JTable Tabla;
     private javax.swing.JTextField TxtMetodo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -226,20 +242,24 @@ public class MenuMetodoPago extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void llenarTabla() {
+    /**
+     * Metodo que obtiene todas los metodos de pago de la BD.
+     */
+    private void actualizarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        TablaMetodos.setModel(modelo);
-        MetodoPagoController list = new MetodoPagoController();
-      /*  List<MetodoPago> lista = (List<MetodoPago>) list.consulta();*/
+       
+        MetodoPagoModelo list = new MetodoPagoModelo();
+        List<MetodoPago> metodos = list.consultarMetodos();
 
         modelo.addColumn("Codigo Metodo");
         modelo.addColumn("Descripción Metodo");
-/*
-        for (MetodoPago metodo : lista) {
-            modelo.addRow((Vector) lista);
+        for (MetodoPago lista : metodos) {
+            String[] fila = new String[2];
+            fila[0] = String.valueOf(lista.getCodMetodo());
+            fila[1] = lista.getDescripcionMetodo();
+            modelo.addRow(fila);
         }
-        */
-
-        // TablaMetodos.addColumn();
+      
+        Tabla.setModel(modelo);
     }
 }
