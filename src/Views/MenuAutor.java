@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Controllers.AutorController;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class MenuAutor extends javax.swing.JFrame {
         actualizarAutores();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,14 +52,25 @@ public class MenuAutor extends javax.swing.JFrame {
         BtnAgregar = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
-        TxtBuscar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        LblCod = new javax.swing.JLabel();
         BtnBuscar = new javax.swing.JButton();
+        TxtBuscar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu Autores"));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane1.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        jScrollPane1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jScrollPane1InputMethodTextChanged(evt);
+            }
+        });
 
         Tabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -68,6 +81,11 @@ public class MenuAutor extends javax.swing.JFrame {
 
             }
         ));
+        Tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nuevo Autor"));
@@ -92,14 +110,45 @@ public class MenuAutor extends javax.swing.JFrame {
         BtnAgregar.setBackground(new java.awt.Color(0, 102, 0));
         BtnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         BtnAgregar.setText("Agregar Autor");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
 
         BtnGuardar.setBackground(new java.awt.Color(0, 0, 255));
         BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         BtnGuardar.setText("Guardar Cambios");
+        BtnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGuardarMouseClicked(evt);
+            }
+        });
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         BtnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         BtnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         BtnEliminar.setText("Eliminar Autor");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Limpiar Campos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Codigo Autor:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -114,23 +163,32 @@ public class MenuAutor extends javax.swing.JFrame {
                         .addComponent(TxtApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TxtNombreAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(TxtApellidoPaterno))))
+                            .addComponent(TxtApellidoPaterno)
+                            .addComponent(LblCod, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BtnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addComponent(LblCod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(TxtNombreAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,37 +197,46 @@ public class MenuAutor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TxtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnGuardar))
+                    .addComponent(BtnGuardar)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TxtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnAgregar))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        TxtBuscar.setText(" ");
-        TxtBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         BtnBuscar.setBackground(new java.awt.Color(102, 102, 102));
         BtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBuscar.setText("Buscar Autor");
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
+
+        TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBuscarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(134, 134, 134)
+                        .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(BtnBuscar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -179,9 +246,9 @@ public class MenuAutor extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscar))
-                .addGap(18, 18, 18)
+                    .addComponent(BtnBuscar)
+                    .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -206,7 +273,7 @@ public class MenuAutor extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -218,9 +285,9 @@ public class MenuAutor extends javax.swing.JFrame {
             .addGap(0, 499, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 44, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 45, Short.MAX_VALUE)))
         );
 
         pack();
@@ -229,6 +296,161 @@ public class MenuAutor extends javax.swing.JFrame {
     private void TxtApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoPaternoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtApellidoPaternoActionPerformed
+
+    
+    /**
+     * Evento que se comunica con el controlador y realiza el evento de guardar.
+     * @param evt Click en el boton agregar
+     */
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        if (TxtNombreAutor.getText().length() >= 2 &&
+                TxtApellidoPaterno.getText().length() >= 2 &&
+                TxtApellidoMaterno.getText().length() >= 2
+                ) {
+            Autor autor = new AutorController().crearAutor( 
+                TxtNombreAutor.getText(),
+                TxtApellidoPaterno.getText(),
+                TxtApellidoMaterno.getText());
+        
+        JOptionPane.showMessageDialog(null, "Se ha agregado con exito el siguiente autor: \n Nombre: "
+        +autor.getNombre()+"\n Apellido Paterno: "
+        +autor.getApellido_paterno()+"\n Apellido Materno: "
+        +autor.getApellido_materno()
+        );
+        
+        actualizarAutores();
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos deben tener mínimo 2 caracteres");
+        }
+        
+         
+        
+        
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    
+    
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+
+        //Obtener fila seleccionada
+        int fila = Tabla.getSelectedRow();
+        //invocacion del autorController y asignacion del retorno del metodo a una variable boolean
+        AutorController eliminar = new AutorController();
+        boolean correcto = eliminar.eliminarAutor(Integer.parseInt(String.valueOf(Tabla.getValueAt(fila, 0))));
+        
+        //si se realizo correctamente la variable correcto seria true y se ejecuta el siguiete if
+        if (correcto) {
+            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el autor");
+            
+            TxtNombreAutor.setText(null);
+            TxtApellidoPaterno.setText(null);
+            TxtApellidoMaterno.setText(null);
+            LblCod.setText(null);
+            actualizarAutores();
+        }else{
+            JOptionPane.showMessageDialog(null, "Se ha producido un error al eliminar el autor");
+        }
+        
+        
+        
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void jScrollPane1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jScrollPane1InputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1InputMethodTextChanged
+
+    private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
+        //obtener fila seleccionada
+        int fila = Tabla.getSelectedRow();
+        
+        LblCod.setText(String.valueOf(Tabla.getValueAt(fila, 0)));
+        TxtNombreAutor.setText(String.valueOf(Tabla.getValueAt(fila, 1)));
+        TxtApellidoPaterno.setText(String.valueOf(Tabla.getValueAt(fila, 2)));
+        TxtApellidoMaterno.setText(String.valueOf(Tabla.getValueAt(fila, 3)));
+        
+    }//GEN-LAST:event_TablaMouseClicked
+
+    private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
+    /*  //obtener fila seleccionada 
+     int fila = this.Tabla.getSelectedRow();
+     
+     //invocacion de clases y creacion de objetos
+     Autor autor = new Autor();
+     autor.setCod_autor(Integer.parseInt(LblCod.getText()));
+     autor.setNombre(TxtNombreAutor.getText());
+     autor.setApellido_paterno(TxtApellidoPaterno.getText());
+     autor.setApellido_materno(TxtApellidoMaterno.getText());
+     
+     Autor editar = new AutorController().editarAutor(autor);
+        
+     JOptionPane.showMessageDialog(null, "Se han guardado los cambios exitosamente\n"
+             + "Nuevos datos: \n"
+             + "Nombre: "+editar.getNombre()+"\n"
+             + "Apellido Paterno: "+editar.getApellido_paterno()+"\n"
+             + "Apellido Materno: "+editar.getApellido_materno()
+     );
+     actualizarAutores();
+        */
+    }//GEN-LAST:event_BtnGuardarMouseClicked
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        //obtener fila seleccionada 
+     int fila = this.Tabla.getSelectedRow();
+     
+     //invocacion de clases y creacion de objetos
+     Autor autor = new Autor();
+     autor.setCod_autor(Integer.parseInt(LblCod.getText()));
+     autor.setNombre(TxtNombreAutor.getText());
+     autor.setApellido_paterno(TxtApellidoPaterno.getText());
+     autor.setApellido_materno(TxtApellidoMaterno.getText());
+     
+     Autor editar = new AutorController().editarAutor(autor);
+        
+     JOptionPane.showMessageDialog(null, "Se han guardado los cambios exitosamente\n"
+             + "Nuevos datos: \n"
+             + "Nombre: "+editar.getNombre()+"\n"
+             + "Apellido Paterno: "+editar.getApellido_paterno()+"\n"
+             + "Apellido Materno: "+editar.getApellido_materno()
+     );
+     actualizarAutores();
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       TxtNombreAutor.setText(null);
+       TxtApellidoPaterno.setText(null);
+       TxtApellidoMaterno.setText(null);
+       LblCod.setText(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+       Autor buscar = new AutorController().porID(Integer.parseInt(TxtBuscar.getText()));
+        
+        if (buscar != null) {
+            LblCod.setText(String.valueOf(buscar.getCod_autor()));
+            TxtNombreAutor.setText(buscar.getNombre());
+            TxtApellidoPaterno.setText(buscar.getApellido_paterno());
+            TxtApellidoMaterno.setText(buscar.getApellido_materno());
+        }else {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el autor en la base de datos");
+        }
+ 
+        
+        
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void TxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarKeyTyped
+        
+        char c = evt.getKeyChar();
+        
+       
+             if(Character.isLetter(c)) { 
+              getToolkit().beep(); 
+               
+              evt.consume(); 
+               
+              JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_TxtBuscarKeyTyped
 
     /**
      * @param args the command line arguments
@@ -270,14 +492,17 @@ public class MenuAutor extends javax.swing.JFrame {
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
+    private javax.swing.JLabel LblCod;
     private javax.swing.JTable Tabla;
     private javax.swing.JTextField TxtApellidoMaterno;
     private javax.swing.JTextField TxtApellidoPaterno;
     private javax.swing.JTextField TxtBuscar;
     private javax.swing.JTextField TxtNombreAutor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

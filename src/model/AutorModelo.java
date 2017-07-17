@@ -135,12 +135,19 @@ public class AutorModelo {
             //Mostrar mensaje si se produce un error.
             JOptionPane.showMessageDialog(null, "Se ha producido un error en la Base de datos:" + e);
             
-        } finally {
-            this.entityManager.getTransaction().rollback();
-            this.entityManager.close();
-        }
+        } 
 
         return autor;
     }
 
+    /**
+     * Metodo que busca en la base de datos con el ID ingresado al autor en la BD.
+     * @param ID Int ID del autor en la BD.
+     * @return Autor objeto encontrado en la BD.
+     */
+    public Autor porId(int ID){
+        Autor autor = this.entityManager.find(Autor.class, ID);
+        return autor;
+        
+    }
 }
